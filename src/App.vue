@@ -30,18 +30,19 @@ export default defineComponent({
       this.outputQr = await this.qr(newString);
 
       window.URL.revokeObjectURL(this.objectUrl);
-      this.objectUrl = this.generateObjectURL(this.outputQr);
+      this.objectUrl = this.generateObjectURL(await this.qr(newString, 45.354));
     }
   },
   methods: {
     clear(): void {
       this.inputString = '';
     },
-    qr(inputString: string): Promise<string> {
+    qr(inputString: string, width?: number): Promise<string> {
       return QRCode.toString(inputString, {
         type: 'svg',
         errorCorrectionLevel: 'H',
         margin: 0,
+        width
       });
     },
     generateFileName(inputString: string): string {
