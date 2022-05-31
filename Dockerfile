@@ -23,7 +23,7 @@ RUN npm run build
 
 # Use official nginx image as the base image
 FROM nginx:latest
-LABEL org.opencontainers.image.source="https://github.com/fantastiskefroe/spir-qr"
+#LABEL org.opencontainers.image.source="https://github.com/fantastiskefroe/spir-qr"
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist /usr/share/nginx/html

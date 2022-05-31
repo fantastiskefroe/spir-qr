@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build_and_push:
+  build_and_publish:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: spir-qr
@@ -28,6 +28,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: RELEASE=${{ github.sha }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
