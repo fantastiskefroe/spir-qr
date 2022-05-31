@@ -38,7 +38,11 @@ export default defineComponent({
       this.inputString = '';
     },
     qr(inputString: string): Promise<string> {
-      return QRCode.toString(inputString);
+      return QRCode.toString(inputString, {
+        type: 'svg',
+        errorCorrectionLevel: 'H',
+        margin: 0,
+      });
     },
     generateFileName(inputString: string): string {
       const split = inputString.split('/');
