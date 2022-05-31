@@ -29,8 +29,9 @@ jobs:
         with:
           build-args: RELEASE=${{ github.sha }}
           labels: |
+            maintainer=${{ github.repository_owner }}
             org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
-            org.opencontainers.image.description=${{ github.event.head_commit.message }}
+            org.opencontainers.image.description=Commit message: ${{ github.event.head_commit.message }}
           context: .
           push: true
           tags: |
