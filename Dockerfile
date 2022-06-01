@@ -13,7 +13,7 @@ COPY ./ /usr/local/app
 RUN npm ci --quiet
 
 ARG RELEASE
-ENV SENTRY_RELEASE=${RELEASE:-dev}
+ENV VUE_APP_SENTRY_RELEASE=${RELEASE:-dev}
 
 # Generate the build of the application
 RUN npm run build
