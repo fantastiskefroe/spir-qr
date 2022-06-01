@@ -8,7 +8,7 @@
     <div class="row mb-3 justify-content-center">
       <div class="col-lg-10 col-xl-8">
           <div class="input-group">
-            <input v-model.trim="inputString" class="form-control form-control-lg" type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content" aria-describedby="input-length-helper">
+            <input v-model.trim="inputString" @keyup.enter="download(inputString)" class="form-control form-control-lg" type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content" aria-describedby="input-length-helper">
             <button @click="clear()" :disabled="!inputString" class="btn btn-secondary" type="button">
               Clear
             </button>
@@ -65,6 +65,10 @@ export default defineComponent({
       });
     },
     async download(inputString: string): Promise<void> {
+      if (!inputString) {
+        return;
+      }
+
       const fileName = this.generateFileName(inputString);
       const objectUrl = this.generateObjectURL(await this.qr(inputString, 45.354));
 
