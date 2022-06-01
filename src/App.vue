@@ -1,24 +1,48 @@
 <template>
-  <h1>QR kode</h1>
-  <input autofocus v-model.trim="inputString">
-  <div v-if="inputString">
-    <button @click="clear()">Ryd</button>
-    <a :download="generateFileName(inputString)" :href="objectUrl">Download</a>
+
+  <div class="container">
+    <div class="row my-5">
+      <h1 class="display-4">QR codes</h1>
+    </div>
+
+    <div class="row mb-3 justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <form class="mb-3">
+          <div class="input-group">
+            <input v-model.trim="inputString" class="form-control form-control-lg" type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content" aria-describedby="input-length-helper">
+            <button @click="clear()" :disabled="!inputString" class="btn btn-secondary" type="button">
+              Clear
+            </button>
+          </div>
+          <div id="input-length-helper" class="form-text" :class="{'text-warning': inputString.length >= 75, 'text-danger': inputString.length >= 90}">
+            {{ inputString.length }} / 100
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div v-if="inputString" class="col-6 col-sm-4 col-lg-3 col-xl-2">
+        <div class="mb-3" v-html="qrSvg"></div>
+        <div class="d-grid">
+          <button @click="download(inputString)" class="btn btn-primary btn-lg" type="button">Download</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="qr-output" v-html="outputQr"></div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
 import QRCode from 'qrcode'
+import "@/assets/style.scss"
 
 export default defineComponent({
   name: 'App',
   data() {
     return {
       inputString: '' as string,
-      outputQr: '' as string,
-      objectUrl: '' as string
+      qrSvg: '' as string,
     }
   },
   watch: {
@@ -27,10 +51,7 @@ export default defineComponent({
         return;
       }
 
-      this.outputQr = await this.qr(newString);
-
-      window.URL.revokeObjectURL(this.objectUrl);
-      this.objectUrl = this.generateObjectURL(await this.qr(newString, 45.354));
+      this.qrSvg = await this.qr(newString);
     }
   },
   methods: {
@@ -45,6 +66,20 @@ export default defineComponent({
         width
       });
     },
+    async download(inputString: string): Promise<void> {
+      const fileName = this.generateFileName(inputString);
+      const objectUrl = this.generateObjectURL(await this.qr(inputString, 45.354));
+
+      // Create and activate link element
+      const el = document.createElement('a');
+      el.download = fileName;
+      el.href = objectUrl;
+      el.click();
+
+      // Clean up
+      el.remove();
+      window.URL.revokeObjectURL(objectUrl);
+    },
     generateFileName(inputString: string): string {
       const split = inputString.split('/');
 
@@ -58,22 +93,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-input {
-  width: 768px;
-}
-
-#qr-output {
-  width: 250px;
-  margin: auto;
-}
-
 </style>

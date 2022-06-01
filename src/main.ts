@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import * as Sentry from '@sentry/vue';
 import App from '@/App.vue';
 import {BrowserTracing} from '@sentry/tracing';
+import 'bootstrap';
 
 const app = createApp(App);
 
