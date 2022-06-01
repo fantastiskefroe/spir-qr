@@ -7,7 +7,6 @@
 
     <div class="row mb-3 justify-content-center">
       <div class="col-lg-10 col-xl-8">
-        <form class="mb-3">
           <div class="input-group">
             <input v-model.trim="inputString" class="form-control form-control-lg" type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content" aria-describedby="input-length-helper">
             <button @click="clear()" :disabled="!inputString" class="btn btn-secondary" type="button">
@@ -17,7 +16,6 @@
           <div id="input-length-helper" class="form-text" :class="{'text-warning': inputString.length >= 75, 'text-danger': inputString.length >= 90}">
             {{ inputString.length }} / 100
           </div>
-        </form>
       </div>
     </div>
 
