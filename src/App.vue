@@ -7,19 +7,22 @@
 
     <div class="row mb-3 justify-content-center">
       <div class="col-lg-10 col-xl-8">
-          <div class="input-group">
-            <input v-model.trim="inputString" @keyup.enter="download(inputString)" class="form-control form-control-lg" type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content" aria-describedby="input-length-helper">
-            <button @click="clear()" :disabled="!inputString" class="btn btn-secondary" type="button">
-              Clear
-            </button>
-          </div>
-          <div id="input-length-helper" class="form-text" :class="{'text-warning': inputString.length >= 75, 'text-danger': inputString.length >= 90}">
-            {{ inputString.length }} / 100
-          </div>
+        <div class="input-group">
+          <input v-model.trim="inputString" @keyup.enter="download(inputString)" class="form-control form-control-lg"
+                 type="text" maxlength="100" autofocus placeholder="Type some content" aria-label="QR content"
+                 aria-describedby="input-length-helper">
+          <button @click="clear()" :disabled="!inputString" class="btn btn-secondary" type="button">
+            Clear
+          </button>
+        </div>
+        <div id="input-length-helper" class="form-text"
+             :class="{'text-warning': inputString.length >= 75, 'text-danger': inputString.length >= 90}">
+          {{ inputString.length }} / 100
+        </div>
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-3">
       <div v-if="inputString" class="col-6 col-sm-4 col-lg-3 col-xl-2">
         <div class="mb-3" v-html="qrSvg"></div>
         <div class="d-grid">
@@ -27,16 +30,25 @@
         </div>
       </div>
     </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <ProductList></ProductList>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import "@/assets/style.scss"
 import {defineComponent} from 'vue';
 import QRCode from 'qrcode'
-import "@/assets/style.scss"
+import ProductList from "@/components/ProductList.vue";
 
 export default defineComponent({
   name: 'App',
+  components: {ProductList},
+
   data() {
     return {
       inputString: '' as string,

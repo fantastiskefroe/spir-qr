@@ -1,8 +1,5 @@
 @import '../styles/variables';
 
-//$font-family-sans-serif: 'Open Sans', sans-serif;
-//$headings-font-family: 'Pharma Bold', sans-serif;
-
 $theme-colors: (
         'primary': $color-brand,
         "secondary": $color-secondary,
@@ -21,3 +18,4 @@ $theme-colors: (
 @import "node_modules/bootstrap/scss/forms";
 @import "node_modules/bootstrap/scss/buttons";
 @import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/list-group";
