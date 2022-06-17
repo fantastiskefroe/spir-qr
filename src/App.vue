@@ -48,7 +48,6 @@ import ProductList from "@/components/ProductList.vue";
 export default defineComponent({
   name: 'App',
   components: {ProductList},
-
   data() {
     return {
       inputString: '' as string,
