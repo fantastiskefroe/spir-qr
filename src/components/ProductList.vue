@@ -35,9 +35,6 @@ export default defineComponent({
       } else {
         this.productList = this.loadFromCache().productList;
       }
-
-      console.log(this.productList[0]);
-      console.log(this.productList[0].imgUrl);
     },
     async fetchAll(): Promise<Product[]> {
       const data = await fetch('https://products.spir.fantastiskefroe.dk/')
