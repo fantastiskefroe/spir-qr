@@ -1,5 +1,5 @@
 <template>
-  <img :src="product.imgUrl" alt="">
+  <img :src="product.imgUrl" loading="lazy" :alt="product.title + 'thumbnail'">
   <span v-html="product.title"></span>
   <span @click="download(product.url)" class="btn btn-primary">Download</span>
 </template>
