@@ -9,7 +9,7 @@
 
   <ul class="list-group">
     <li v-for="product in filteredProductList" :key="product.id" class="list-group-item d-flex justify-content-between align-items-center">
-      <ProductItem :product="product"></ProductItem>
+      <ProductItem :product="product" :highlight="searchQuery.toLowerCase()"></ProductItem>
     </li>
   </ul>
 </template>

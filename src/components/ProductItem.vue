@@ -1,10 +1,8 @@
 <template>
   <img :src="product.imgUrl" loading="lazy" :alt="product.title + 'thumbnail'">
   <div class="d-flex flex-column align-items-center">
-    <span v-html="product.title"></span>
-    <span class="small fst-italic text-muted">
-      {{ product.variants.map(variant => variant.sku).filter(sku => sku).join(', ') }}
-    </span>
+    <span v-html="highlightedTitle"></span>
+    <span class="small fst-italic text-muted" v-html="highlightedSkus"></span>
   </div>
   <span @click="download(product.url)" class="btn btn-primary">Download</span>
 </template>
@@ -17,9 +15,26 @@ import {Product} from "@/types/product";
 export default defineComponent({
   name: 'ProductItem',
   props: {
-    product: {type: Object as PropType<Product>, required: true}
+    product: {type: Object as PropType<Product>, required: true},
+    highlight: String
   },
-  methods: {
+  computed: {
+    highlightedTitle() {
+      if (!this.highlight || this.highlight.length < 2) {
+        return this.product.title;
+      }
+
+      return this.product.title.replaceAll(new RegExp(this.highlight, 'gi'), '<b>$&</b>');
+    },
+    highlightedSkus() {
+      const skuString = this.product.variants.map(variant => variant.sku).filter(sku => sku).join(', ');
+      if (!this.highlight || this.highlight.length < 2) {
+        return skuString;
+      }
+
+      return skuString.replaceAll(new RegExp(this.highlight, 'gi'), '<b>$&</b>');
+    }
+  },  methods: {
     qr(inputString: string, width?: number): Promise<string> {
       return QRCode.toString(inputString, {
         type: 'svg',
