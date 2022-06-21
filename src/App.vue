@@ -72,6 +72,10 @@ export default defineComponent({
         type: 'svg',
         errorCorrectionLevel: 'H',
         margin: 0,
+        color: {
+          dark:"#000000FF",
+          light:"#FFFFFF00"
+        },
         width
       });
     },
