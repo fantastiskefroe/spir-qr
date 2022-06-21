@@ -1,13 +1,10 @@
+import {VariantDTO} from "@/types/VariantDTO";
+
 export interface ProductDTO {
     id: string;
     title: string;
     handle: string;
     url: string;
     imageUrl: string;
-    variants: {
-        id: string,
-        title: string,
-        sku: string,
-        price: number
-    };
+    variants: Record<string, VariantDTO>;
 }

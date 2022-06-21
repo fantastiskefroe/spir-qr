@@ -19,6 +19,7 @@ import {defineComponent} from 'vue';
 import {Product} from "@/types/product";
 import ProductItem from "@/components/ProductItem.vue";
 import {ProductDTO} from "@/types/productDTO";
+import {Variant} from "@/types/variant";
 
 export default defineComponent({
   name: 'ProductList',
@@ -32,7 +33,9 @@ export default defineComponent({
   computed: {
     filteredProductList() {
       return this.productList.filter(product => {
-        return product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        const query = this.searchQuery.toLowerCase();
+
+        return product.title.toLowerCase().includes(query) || product.variants.map(variant => variant.sku.toLowerCase()).filter(sku => sku.includes(query)).length > 0;
       })
     }
   },
@@ -62,11 +65,20 @@ export default defineComponent({
       return Promise.resolve(data.map(this.toProduct));
     },
     toProduct(source: ProductDTO): Product {
+      const variants: Variant[] = Object.values(source.variants)
+          .map(variantDTO => {
+            return {
+              id: variantDTO.id,
+              sku: variantDTO.sku
+            };
+          });
+
       return {
         id: source.id,
         title: source.title,
         url: source.url,
-        imgUrl: source.imageUrl
+        imgUrl: source.imageUrl,
+        variants: variants
       };
     },
     saveToCache(productList: Product[]): void {

@@ -1,6 +1,11 @@
 <template>
   <img :src="product.imgUrl" loading="lazy" :alt="product.title + 'thumbnail'">
-  <span v-html="product.title"></span>
+  <div class="d-flex flex-column align-items-center">
+    <span v-html="product.title"></span>
+    <span class="small fst-italic text-muted">
+      {{ product.variants.map(variant => variant.sku).filter(sku => sku).join(', ') }}
+    </span>
+  </div>
   <span @click="download(product.url)" class="btn btn-primary">Download</span>
 </template>
 
