@@ -1,4 +1,4 @@
-import {VariantDTO} from "@/types/VariantDTO";
+import {VariantDTO} from '@/types/VariantDTO';
 
 export interface ProductDTO {
     id: string;

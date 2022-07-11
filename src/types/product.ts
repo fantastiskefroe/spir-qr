@@ -1,4 +1,4 @@
-import {Variant} from "@/types/variant";
+import {Variant} from '@/types/variant';
 
 export interface Product {
     id: string;

@@ -10,7 +10,7 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
 import QRCode from 'qrcode';
-import {Product} from "@/types/product";
+import {Product} from '@/types/product';
 
 export default defineComponent({
   name: 'ProductItem',
@@ -34,15 +34,15 @@ export default defineComponent({
 
       return skuString.replaceAll(new RegExp(this.highlight, 'gi'), '<b>$&</b>');
     }
-  },  methods: {
+  }, methods: {
     qr(inputString: string, width?: number): Promise<string> {
       return QRCode.toString(inputString, {
         type: 'svg',
         errorCorrectionLevel: 'H',
         margin: 0,
         color: {
-          dark:"#000000FF",
-          light:"#FFFFFF00"
+          dark: '#000000FF',
+          light: '#FFFFFF00'
         },
         width
       });

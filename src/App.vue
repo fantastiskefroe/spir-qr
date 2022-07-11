@@ -40,10 +40,10 @@
 </template>
 
 <script lang="ts">
-import "@/assets/style.scss"
+import '@/assets/style.scss'
 import {defineComponent} from 'vue';
 import QRCode from 'qrcode'
-import ProductList from "@/components/ProductList.vue";
+import ProductList from '@/components/ProductList.vue';
 
 export default defineComponent({
   name: 'App',
@@ -73,8 +73,8 @@ export default defineComponent({
         errorCorrectionLevel: 'H',
         margin: 0,
         color: {
-          dark:"#000000FF",
-          light:"#FFFFFF00"
+          dark: '#000000FF',
+          light: '#FFFFFF00'
         },
         width
       });

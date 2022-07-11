@@ -8,7 +8,8 @@
   </div>
 
   <ul class="list-group">
-    <li v-for="product in filteredProductList" :key="product.id" class="list-group-item d-flex justify-content-between align-items-center">
+    <li v-for="product in filteredProductList" :key="product.id"
+        class="list-group-item d-flex justify-content-between align-items-center">
       <ProductItem :product="product" :highlight="searchQuery.toLowerCase()"></ProductItem>
     </li>
   </ul>
@@ -16,10 +17,10 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import {Product} from "@/types/product";
-import ProductItem from "@/components/ProductItem.vue";
-import {ProductDTO} from "@/types/productDTO";
-import {Variant} from "@/types/variant";
+import {Product} from '@/types/product';
+import ProductItem from '@/components/ProductItem.vue';
+import {ProductDTO} from '@/types/productDTO';
+import {Variant} from '@/types/variant';
 
 export default defineComponent({
   name: 'ProductList',
@@ -69,7 +70,8 @@ export default defineComponent({
           .map(variantDTO => {
             return {
               id: variantDTO.id,
-              sku: variantDTO.sku
+              sku: variantDTO.sku,
+              inventory: variantDTO.inventory,
             };
           });
 
