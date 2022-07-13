@@ -19,9 +19,8 @@ ENV VUE_APP_SENTRY_RELEASE=${RELEASE:-dev}
 RUN npm run build
 
 
-# Stage 2: Serve app with thttp
+# Stage 2: Serve app
 
-# Use official nginx image as the base image
 FROM pierrezemb/gostatic:latest
 
 # Copy the build output to replace the default nginx contents.
