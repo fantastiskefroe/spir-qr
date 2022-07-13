@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_release:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       IMAGE_NAME: spir-qr
     steps:
